@@ -1,7 +1,7 @@
 services:
 
   tempo:
-    image: docker.io/grafana/tempo:latest
+    image: docker.io/grafana/tempo:2.10.4
     volumes:
       - ./shared/tempo:/etc
       - ./tempo-data:/var/tempo
