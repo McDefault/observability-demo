@@ -68,6 +68,7 @@ services:
   grafana:
     image: docker.io/grafana/grafana:latest
     volumes:
+      - ./shared/grafana/grafana.ini:/etc/grafana/grafana.ini
       - ./shared/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./shared/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
       - ./shared/grafana/dashboards:/var/lib/grafana/dashboards
