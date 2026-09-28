@@ -19,12 +19,15 @@ scrape_configs:
       team: DevOps
       env: Prod
       component:
+      level:
   pipeline_stages:
   - logfmt:
       mapping:
         component:
+        level:
   - labels:
       component:
+      level:
         
 
 
