@@ -1,5 +1,21 @@
 services:
 
+  postgres-db:
+    image: docker.io/postgres:15-alpine
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: observability
+      POSTGRES_USER: observability_user
+      POSTGRES_PASSWORD: your_secure_password # Change this to a secure password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U grafana_user -d grafana"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
   tempo:
     image: docker.io/grafana/tempo:2.10.4
     volumes:
@@ -79,8 +95,17 @@ services:
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_DISABLE_LOGIN_FORM=false
       - GF_HTTP_TLS_SKIP_VERIFY=true
+      - GF_DATABASE_TYPE=postgres
+      - GF_DATABASE_HOST=postgres-db:5432
+      - GF_DATABASE_NAME=observability
+      - GF_DATABASE_USER=observability_user
+      - GF_DATABASE_PASSWORD=your_secure_password # Must match POSTGRES_PASSWORD above
+      - GF_DATABASE_SSL_MODE=disable
     ports:
       - "3000:3000"
+    depends_on:
+      postgres-db:
+        condition: service_healthy
 
   shoehub:
     image: docker.io/aussiearef/shoehub
@@ -119,3 +144,4 @@ services:
 volumes:
   prometheus-data:
   tempo-data:
+  pgdata:
