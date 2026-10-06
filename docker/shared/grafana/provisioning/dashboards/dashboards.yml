@@ -9,3 +9,11 @@ providers:
     updateIntervalSeconds: 10
     options:
       path: /var/lib/grafana/dashboards/ShoeHub_Dashboard.json
+  - name: 'Advanced ShoeHub'
+    orgId: 1
+    folder: 'Tech Team'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    options:
+      path: /var/lib/grafana/dashboards/Advanced_ShoeHub_Dashboard.json
