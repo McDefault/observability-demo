@@ -4,7 +4,7 @@ import time
 import random
 
 # Configure basic logging to write logs to a file
-log_file_path = '/var/log/loki_udemy.log'
+log_file_path = '../docker/shared/logs/loki_udemy.log'
 logging.basicConfig(filename=log_file_path, level=logging.INFO, format='%(asctime)s level=%(levelname)s app=myapp component=%(component)s %(message)s')
 
 def generate_log_entries():
