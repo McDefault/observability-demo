@@ -71,9 +71,17 @@ services:
 
   alloy:
     image: docker.io/grafana/alloy:latest
-    command: [ "run", "--server.http.listen-addr=0.0.0.0:12345", "--storage.path=/tmp/alloy", "/etc/alloy/config.alloy" ]
+#    command: [ "run", "--server.http.listen-addr=0.0.0.0:12345", "--storage.path=/tmp/alloy", "/etc/alloy/config.alloy" ]
+    command: [
+      "run",
+      "--stability.level=public-preview",
+      "--server.http.listen-addr=0.0.0.0:12345",
+      "--storage.path=/tmp/alloy",
+      "/etc/alloy/config.alloy"
+    ]
     user: "0"
     volumes:
+      - ./shared/logs/shoehub:/var/log/shoehub
       - ./shared/alloy:/etc/alloy
     ports:
       - "12345:12345"
